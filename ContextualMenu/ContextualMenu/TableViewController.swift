@@ -57,15 +57,13 @@ class TableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-        animator.addCompletion { [weak self] in
-            if let index = Int(configuration.identifier as! String) {
-                animator.addCompletion {[weak self]in
-                    let detailVC = DetailViewController(nibName: "DetailViewController", bundle: nil)
-                    if let imageName = self?.imageArray[index] {
-                        detailVC.image = UIImage(named: imageName)
-                    }
-                    self?.show(detailVC, sender: nil)
+        if let index = Int(configuration.identifier as! String) {
+            animator.addCompletion {[weak self]in
+                let detailVC = DetailViewController(nibName: "DetailViewController", bundle: nil)
+                if let imageName = self?.imageArray[index] {
+                    detailVC.image = UIImage(named: imageName)
                 }
+                self?.show(detailVC, sender: nil)
             }
         }
     }
